@@ -21,6 +21,7 @@ We believe there is a firm foundation for the Smart Gigabit community to thrive.
     * leaflet
     * ggplot2
     * dplyr
+  * Also included is an RMarkdown file for interactive visualization
 
 ## Contributor Guide
 https://github.com/ashenoy95/HackIllinois-2018/blob/master/CONTRIBUTING.md
