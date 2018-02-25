@@ -1,3 +1,15 @@
+---
+title: "Geo Spatial Analysis of Open Municipal Data"
+author: "Gaurav Derasaria, Aniket Shenoy"
+date: "2/25/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r warning=FALSE, message=FALSE}
 library(rgdal)
 library(leaflet)
 library(ggplot2)
@@ -77,7 +89,38 @@ icons_open <- awesomeIcons(
   markerColor = "red"
 )
 
-m_closed <- leaflet(champaign_closed_wgs84) %>% addTiles() %>% 
+```
+
+```{r warning=FALSE, message=FALSE}
+avg_days_per_issue <- setNames(aggregate(champaign_closed$TIMESPAN, 
+                                list(champaign_closed$DESCRIPTION), mean), 
+                               c('DESCRIPTION', 'TIMESPAN'))
+avg_days_per_issue <- avg_days_per_issue[order(-avg_days_per_issue$TIMESPAN),]
+
+ggplot(avg_days_per_issue[1:10,]) + 
+  aes(DESCRIPTION, TIMESPAN) + 
+  geom_col(fill='#FF6666') + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  xlab(c('Service request')) + ylab(c('Avg days to resolve')) +
+  ggtitle('Top 10 requests that took the most time to solve')
+```
+
+```{r warning=FALSE, message=FALSE}
+# plot for Top 10 service addresses 
+avg_days_per_place <- setNames(aggregate(champaign_closed$TIMESPAN, 
+                                         list(champaign_closed$PROBADDRESS), mean), 
+                               c('PROBADDRESS', 'TIMESPAN'))
+avg_days_per_place <- avg_days_per_place[order(-avg_days_per_place$TIMESPAN),]
+
+ggplot(avg_days_per_place[1:10,]) + 
+  aes(PROBADDRESS, TIMESPAN) + 
+  geom_col(fill='#FF6666') + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  xlab(c('Address')) + ylab(c('Avg days to resolve'))
+```
+
+```{r warning=FALSE, message=FALSE}
+leaflet(champaign_closed_wgs84) %>% addTiles() %>% 
   addAwesomeMarkers(lng=champaign_closed_wgs84$long, lat=champaign_closed_wgs84$lat, 
                     icon=icons_closed, 
                     label = champaign_closed$DESCRIPTION, 
@@ -89,10 +132,13 @@ m_closed <- leaflet(champaign_closed_wgs84) %>% addTiles() %>%
                                   "<br><br>", 
                                   "Days taken to resolve: ", 
                                   champaign_closed$TIMESPAN), 
-                    clusterOptions = markerClusterOptions()) 
-  
+                    clusterOptions = markerClusterOptions())
 
-m_open <- leaflet(champaign_open_wgs84) %>% addTiles() %>%
+```
+
+
+```{r warning=FALSE, message=FALSE}
+leaflet(champaign_open_wgs84) %>% addTiles() %>%
   addAwesomeMarkers(lng=champaign_open_wgs84$long, lat=champaign_open_wgs84$lat, 
                     icon=icons_open, label = champaign_open$DESCRIPTION, 
                     popup = paste("Address:", champaign_open$PROBADDRESS,
@@ -101,10 +147,11 @@ m_open <- leaflet(champaign_open_wgs84) %>% addTiles() %>%
                                   "<br><br>", 
                                   "Init date: ", champaign_open$DATETIMEINIT), 
                     clusterOptions = markerClusterOptions())
+```
 
-
+```{r warning=FALSE, message=FALSE}
 # 20 requsts that took the most time to solve  
-m_most_time <- leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addTiles() %>% 
+leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addTiles() %>% 
   addAwesomeMarkers(lng=champaign_closed_sorted_wgs84$long[1:20], 
                     lat=champaign_closed_sorted_wgs84$lat[1:20], 
                     icon=icons_closed, 
@@ -117,47 +164,17 @@ m_most_time <- leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addTiles() %>%
                                   "<br><br>", 
                                   "Days taken: ", 
                                   champaign_closed_sorted$TIMESPAN[1:20]))
+```
 
-
-# plot for Top 10 service requests 
-avg_days_per_issue <- setNames(aggregate(champaign_closed$TIMESPAN, 
-                                list(champaign_closed$DESCRIPTION), mean), 
-                               c('DESCRIPTION', 'TIMESPAN'))
-avg_days_per_issue <- avg_days_per_issue[order(-avg_days_per_issue$TIMESPAN),]
-
-top_service_requests <- ggplot(avg_days_per_issue[1:10,]) + 
-  aes(DESCRIPTION, TIMESPAN) + 
-  geom_col(fill='#FF6666') + 
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
-  xlab(c('Service request')) + ylab(c('Avg days to resolve')) +
-  ggtitle('Top 10 requests that took the most time to solve')
-
-
-# plot for Top 10 service addresses 
-avg_days_per_place <- setNames(aggregate(champaign_closed$TIMESPAN, 
-                                         list(champaign_closed$PROBADDRESS), mean), 
-                               c('PROBADDRESS', 'TIMESPAN'))
-avg_days_per_place <- avg_days_per_place[order(-avg_days_per_place$TIMESPAN),]
-
-top_service_places <- ggplot(avg_days_per_place[1:10,]) + 
-  aes(PROBADDRESS, TIMESPAN) + 
-  geom_col(fill='#FF6666') + 
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
-  xlab(c('Address')) + ylab(c('Avg days to resolve'))
-
-
+```{r warning=FALSE, message=FALSE}
 binpal <- colorBin("Reds", champaign_closed_sorted$TIMESPAN, 4, pretty = FALSE, 
                    reverse = TRUE)
-w <- leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addTiles() %>%
+leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addTiles() %>%
   addCircles(lng = champaign_closed_sorted_wgs84$long[1:20], 
              lat = champaign_closed_sorted_wgs84$lat[1:20], weight = 0.5,
              radius = sqrt(champaign_closed_sorted$TIMESPAN)*20 , 
              color = binpal(champaign_closed_sorted$TIMESPAN),
              popup = paste("Days to solve problem:", 
                            champaign_closed_sorted$TIMESPAN[1:20], sep = ' '))
+```
 
-
-  
-
-
-  
