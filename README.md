@@ -14,6 +14,7 @@ We believe there is a firm foundation for the Smart Gigabit community to thrive.
 
 
 ## USAGE
+  * View the HTML file for interactive map visualizations
   * Before starting, please check out the source link mentioned above. 
   * To build on this project, clone the repo and check out the .R file. 
   * Requires R version 3.4.3 and the following libraries:
