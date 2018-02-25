@@ -6,7 +6,7 @@ Source: https://github.com/HackIllinois/submissions-guidelines#if-you-started-so
   * Geo spatial visualization of service requests (both closed and open) and the amount of time taken to resolve the requests
   * The visualizations can be used to keep a track of the following and thereby contribute to improving the efficiency of city services:
     * What type of services take up the resources of the city
-    * Are there a patterns in certain regions?
+    * Are there patterns in certain regions?
     * Monitring service requests in real-time
 
 Through the visualizations it can be observed that there are patterns in the utilization of resources. Given more data, Machine Learning algorithms can be employed to make predictions regarding allocation of resources. Thus, we can work towards enhancing resource utilization. 
@@ -14,8 +14,8 @@ We believe there is a firm foundation for the Smart Gigabit community to thrive.
 
 
 ## USAGE
-  * View the HTML file for interactive map visualizations
   * Before starting, please check out the source link mentioned above. 
+  * View the HTML file for interactive map visualizations
   * To build on this project, clone the repo and check out the .R file. 
   * Requires R version 3.4.3 and the following libraries:
     * rgdal
