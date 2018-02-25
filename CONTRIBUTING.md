@@ -6,9 +6,11 @@
 
 * Getting EPSG code from the proj4 string: https://gis.stackexchange.com/questions/55196/how-can-i-get-the-proj4-string-or-epsg-code-from-a-shapefile-prj-file
 
-* communcations: Contact either of the following for any communication
+* Contact either of the following for any communication
   * shenoyaniket95@gmail.com
   * gauravderasaria@outlook.com
 
-    
+
+## How to report a Bug:
+Open an issue in this repo with a verbose description to report a bug.
 
