@@ -19,6 +19,6 @@ Source: https://github.com/HackIllinois/submissions-guidelines#if-you-started-so
     * dplyr
 
 ## Contributor Guide
-[LINK TO CONTRIBUTING.md]
+https://github.com/ashenoy95/HackIllinois-2018/blob/master/CONTRIBUTING.md
 
 ## License 

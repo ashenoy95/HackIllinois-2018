@@ -1,7 +1,3 @@
-##Contibuting to [PROJECT]
-
-## Welcome contributors to the project: 
-
 ## Short Links to Important Resources:
 * Leaflet documentation: https://rstudio.github.io/leaflet/
 
