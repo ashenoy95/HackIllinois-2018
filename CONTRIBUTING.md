@@ -11,8 +11,4 @@
   * gauravderasaria@outlook.com
 
     
-## New Feature Requirements
-Through the visualizations it can be observed that there are patterns in the utilization of resources. Given more data, Machine Learning algorithms can be employed to make predictions regarding allocation of resources. Thus, we can work towards enhancing resource utilization. 
-We believe there is a firm foundation for the Smart Gigabit community to thrive.
-
 
