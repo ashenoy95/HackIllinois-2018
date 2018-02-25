@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE, echo=FALSE}
 library(rgdal)
 library(leaflet)
 library(ggplot2)
@@ -91,7 +91,7 @@ icons_open <- awesomeIcons(
 
 ```
 
-```{r warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE, echo=FALSE}
 avg_days_per_issue <- setNames(aggregate(champaign_closed$TIMESPAN, 
                                 list(champaign_closed$DESCRIPTION), mean), 
                                c('DESCRIPTION', 'TIMESPAN'))
@@ -105,21 +105,10 @@ ggplot(avg_days_per_issue[1:10,]) +
   ggtitle('Top 10 requests that took the most time to solve')
 ```
 
-```{r warning=FALSE, message=FALSE}
-# plot for Top 10 service addresses 
-avg_days_per_place <- setNames(aggregate(champaign_closed$TIMESPAN, 
-                                         list(champaign_closed$PROBADDRESS), mean), 
-                               c('PROBADDRESS', 'TIMESPAN'))
-avg_days_per_place <- avg_days_per_place[order(-avg_days_per_place$TIMESPAN),]
 
-ggplot(avg_days_per_place[1:10,]) + 
-  aes(PROBADDRESS, TIMESPAN) + 
-  geom_col(fill='#FF6666') + 
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
-  xlab(c('Address')) + ylab(c('Avg days to resolve'))
-```
+Requests that have been Closed:
 
-```{r warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE, echo=FALSE}
 leaflet(champaign_closed_wgs84) %>% addTiles() %>% 
   addAwesomeMarkers(lng=champaign_closed_wgs84$long, lat=champaign_closed_wgs84$lat, 
                     icon=icons_closed, 
@@ -137,7 +126,9 @@ leaflet(champaign_closed_wgs84) %>% addTiles() %>%
 ```
 
 
-```{r warning=FALSE, message=FALSE}
+Requests still open:
+
+```{r warning=FALSE, message=FALSE, echo=FALSE}
 leaflet(champaign_open_wgs84) %>% addTiles() %>%
   addAwesomeMarkers(lng=champaign_open_wgs84$long, lat=champaign_open_wgs84$lat, 
                     icon=icons_open, label = champaign_open$DESCRIPTION, 
@@ -149,7 +140,10 @@ leaflet(champaign_open_wgs84) %>% addTiles() %>%
                     clusterOptions = markerClusterOptions())
 ```
 
-```{r warning=FALSE, message=FALSE}
+
+20 requests that took the most time to solve:
+
+```{r warning=FALSE, message=FALSE, echo=FALSE}
 # 20 requsts that took the most time to solve  
 leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addTiles() %>% 
   addAwesomeMarkers(lng=champaign_closed_sorted_wgs84$long[1:20], 
@@ -166,7 +160,10 @@ leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addTiles() %>%
                                   champaign_closed_sorted$TIMESPAN[1:20]))
 ```
 
-```{r warning=FALSE, message=FALSE}
+
+Intensity of circles indicate amount of time taken:
+
+```{r warning=FALSE, message=FALSE, echo=FALSE}
 binpal <- colorBin("Reds", champaign_closed_sorted$TIMESPAN, 4, pretty = FALSE, 
                    reverse = TRUE)
 leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addTiles() %>%
