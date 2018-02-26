@@ -1,6 +1,6 @@
 # Geo Spatial Analysis of Open Municipal Data
 
-Source: https://github.com/HackIllinois/submissions-guidelines#if-you-started-something-new-new-repo 
+Source: https://github.com/hackillinois-reversepitch/HackIllinois-2018
 
   * Pre-processing and cleansing of Champaign Municipal Cityworks data
   * Geo spatial visualization of service requests (both closed and open) and the amount of time taken to resolve the requests
