@@ -14,9 +14,9 @@ We believe there is a firm foundation for the Smart Gigabit community to thrive.
 
 
 ## USAGE
-Website: http://pages.iu.edu/~ashenoy/rev_pitch.html
   * Before starting, please check out the source link mentioned above. 
-  * Download the HTML file for interactive map visualizations
+  * Check out the visualizations [here](http://pages.iu.edu/~ashenoy/rev_pitch.html) 
+  * Download the HTML file for interactive map visualizations or check it out here
   * To build on this project, clone the repo and check out the .R file. 
   * Requires R version 3.4.3 and the following libraries:
     * rgdal
