@@ -88,7 +88,6 @@ icons_open <- awesomeIcons(
   library = 'ion',
   markerColor = "red"
 )
-
 ```
 
 ```{r warning=FALSE, message=FALSE, echo=FALSE}
@@ -108,7 +107,8 @@ ggplot(avg_days_per_issue[1:10,]) +
 Requests that have been Closed:
 
 ```{r warning=FALSE, message=FALSE, echo=FALSE}
-leaflet(champaign_closed_wgs84) %>% addTiles() %>% 
+# addProvider used to render maps in html
+leaflet(champaign_closed_wgs84) %>% addProviderTiles(providers$OpenStreetMap) %>% 
   addAwesomeMarkers(lng=champaign_closed_wgs84$long, lat=champaign_closed_wgs84$lat, 
                     icon=icons_closed, 
                     label = champaign_closed$DESCRIPTION, 
@@ -121,13 +121,12 @@ leaflet(champaign_closed_wgs84) %>% addTiles() %>%
                                   "Days taken to resolve: ", 
                                   champaign_closed$TIMESPAN), 
                     clusterOptions = markerClusterOptions())
-
 ```
 
 Requests still open:
 
 ```{r warning=FALSE, message=FALSE, echo=FALSE}
-leaflet(champaign_open_wgs84) %>% addTiles() %>%
+leaflet(champaign_open_wgs84) %>% addProviderTiles(providers$OpenStreetMap) %>%
   addAwesomeMarkers(lng=champaign_open_wgs84$long, lat=champaign_open_wgs84$lat, 
                     icon=icons_open, label = champaign_open$DESCRIPTION, 
                     popup = paste("Address:", champaign_open$PROBADDRESS,
@@ -142,7 +141,7 @@ leaflet(champaign_open_wgs84) %>% addTiles() %>%
 
 ```{r warning=FALSE, message=FALSE, echo=FALSE}
 # 20 requsts that took the most time to solve  
-leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addTiles() %>% 
+leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addProviderTiles(providers$OpenStreetMap) %>% 
   addAwesomeMarkers(lng=champaign_closed_sorted_wgs84$long[1:20], 
                     lat=champaign_closed_sorted_wgs84$lat[1:20], 
                     icon=icons_closed, 
@@ -158,12 +157,12 @@ leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addTiles() %>%
 
 ```
 
-Intensity of circles indicate amount of time taken:
+<Intensity of circles indicate amount of time taken:>
 
 ```{r warning=FALSE, message=FALSE, echo=FALSE}
 binpal <- colorBin("Reds", champaign_closed_sorted$TIMESPAN, 4, pretty = FALSE, 
                    reverse = TRUE)
-w<-leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addTiles() %>%
+w<-leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addProviderTiles(providers$OpenStreetMap) %>%
   addCircles(lng = champaign_closed_sorted_wgs84$long[1:20], 
              lat = champaign_closed_sorted_wgs84$lat[1:20], weight = 0.5,
              radius = sqrt(champaign_closed_sorted$TIMESPAN)*20 , 
