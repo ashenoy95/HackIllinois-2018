@@ -1,2 +1,10 @@
-*.
-!.gitignore
+# R files 
+.Rhistory
+.RData
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Trashes
+Thumbs.db
