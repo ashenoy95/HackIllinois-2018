@@ -99,8 +99,7 @@ avg_days_per_issue <- avg_days_per_issue[order(-avg_days_per_issue$TIMESPAN),]
 
 ggplot(avg_days_per_issue[1:10,]) + 
   aes(DESCRIPTION, TIMESPAN) + 
-  geom_col(fill='#FF6666') + 
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  geom_col(fill='#FF6666') + coord_flip() + 
   xlab(c('Service request')) + ylab(c('Avg days to resolve')) +
   ggtitle('Top 10 requests that took the most time to solve')
 ```
@@ -125,7 +124,6 @@ leaflet(champaign_closed_wgs84) %>% addTiles() %>%
 
 ```
 
-
 Requests still open:
 
 ```{r warning=FALSE, message=FALSE, echo=FALSE}
@@ -139,7 +137,6 @@ leaflet(champaign_open_wgs84) %>% addTiles() %>%
                                   "Init date: ", champaign_open$DATETIMEINIT), 
                     clusterOptions = markerClusterOptions())
 ```
-
 
 20 requests that took the most time to solve:
 
@@ -158,15 +155,15 @@ leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addTiles() %>%
                                   "<br><br>", 
                                   "Days taken: ", 
                                   champaign_closed_sorted$TIMESPAN[1:20]))
-```
 
+```
 
 Intensity of circles indicate amount of time taken:
 
 ```{r warning=FALSE, message=FALSE, echo=FALSE}
 binpal <- colorBin("Reds", champaign_closed_sorted$TIMESPAN, 4, pretty = FALSE, 
                    reverse = TRUE)
-leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addTiles() %>%
+w<-leaflet(champaign_closed_sorted_wgs84[1:20,]) %>% addTiles() %>%
   addCircles(lng = champaign_closed_sorted_wgs84$long[1:20], 
              lat = champaign_closed_sorted_wgs84$lat[1:20], weight = 0.5,
              radius = sqrt(champaign_closed_sorted$TIMESPAN)*20 , 

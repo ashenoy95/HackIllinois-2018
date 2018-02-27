@@ -127,7 +127,7 @@ avg_days_per_issue <- avg_days_per_issue[order(-avg_days_per_issue$TIMESPAN),]
 
 top_service_requests <- ggplot(avg_days_per_issue[1:10,]) + 
   aes(DESCRIPTION, TIMESPAN) + 
-  geom_col(fill='#FF6666') + 
+  geom_col(fill='#FF6666') + coord_flip() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
   xlab(c('Service request')) + ylab(c('Avg days to resolve')) +
   ggtitle('Top 10 requests that took the most time to solve')
