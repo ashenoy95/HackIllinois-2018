@@ -15,7 +15,7 @@ We believe there is a firm foundation for the Smart Gigabit community to thrive.
 
 ## USAGE
   * Before starting, please check out the source link mentioned above. 
-  * __Check out the visualizations <a href="http://pages.iu.edu/~ashenoy/rev_pitch.html" target="_blank">here</a>__ 
+  * __Check out the visualizations <a href="https://ashenoy95.github.io/HackIllinois-2018/" target="_blank">here</a>__ 
   * Download the HTML file for interactive map visualizations or check it out here
   * To build on this project, clone the repo and check out the .R file. 
   * Requires R version 3.4.3 and the following libraries:
